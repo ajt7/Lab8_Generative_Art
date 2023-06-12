@@ -1,0 +1,85 @@
+*Lab 8*
+*Generative Art*
+*Ashkan Taghavi*
+
+```{r}
+library(dplyr)
+library(jasmines)
+library(ggplot2)
+
+  scene_discs(
+    rings = 100, 
+    points = 80000, 
+    size = 50
+  ) %>%
+  mutate(ind = 1:n()) %>%
+  unfold_warp(
+    iterations = 10,
+    scale = .5, 
+    output = "layer" 
+  ) %>%
+  unfold_tempest(
+    iterations = 5,
+    scale = .01
+  ) %>%
+  style_ribbon(
+    color = "#F30006",
+    colour = "ind",
+    alpha = c(1,1),
+    background = "#3E8000"
+  ) %>%
+  style_overlay(border = "black", linewidth = 0.01)
+
+```
+
+**"Emerging Unity"**
+
+***Description***
+"Emerging Unity" is a captivating digital generative art piece featuring a green background and a bold red circle with black outlines. The green backdrop symbolizes harmony and growth, while the red circle represents passion and creative expression. The black outlines provide structure and elegance, creating a visually striking composition. Immerse yourself in this artwork and explore the interplay of color, form, and emotion in a captivating display of unity. 
+
+**Code Description**
+By having the number rings set to 100 makes the disc in the middle made up of a 100 rings. Additionally it was comprised of 80,000 points. In the style_ribbon function, the color is set to #F30006, which is what makes the nice bright shade of red of the disc in the middle, with the background being set to #3E8000, a nice smooth shade of green. The style overlay adds border color of black to the rings in the red disc, and with the size set to 0.01, it allows both the black overlay border and red rings to be seen.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Generate a random seed
+seed <- as.integer(Sys.time())
+
+# Randomly select colors for the legend
+num_colors <- length(unique(mpg$cyl))
+colors <- sample(colors(), num_colors, replace = FALSE, set.seed(seed))
+
+mpg %>%
+  ggplot(aes(displ, hwy, colour = factor(cyl), size = factor(drv))) +
+  geom_point(show.legend = FALSE, shape = 21, fill = "white", stroke = 1) +
+  theme_void() +
+  scale_color_manual(values = colors) +
+  scale_size_manual(values = c(3, 5, 7)) +
+  guides(colour = guide_legend(override.aes = list(size = 3))) +
+  guides(size = guide_legend(override.aes = list(shape = 21, fill = "white", stroke = 1))) +
+  labs(colour = "Cylinders", size = "Drive Type")
+
+
+```
+
+**"Harmonious Visualization"**
+
+***Description***
+"Harmonious Visualization" is a captivating digital artwork created using the ggplot2 and dplyr libraries. This code-generated piece showcases a scatter plot of the 'mpg' dataset, employing colors and sizes to represent the 'cyl' and 'drv' variables, respectively. The vibrant colors, minimalist design, and void theme come together to create a visually striking composition that merges data and art seamlessly. Explore the harmonious interplay of variables and aesthetics in this captivating visualization.
+
+***Code Description***
+The carefully chosen code options influence the appearance of this artwork. By utilizing the 'scale_color_manual' function, a unique color palette is applied, randomly selected and based on the distinct values in the 'cyl' variable. This choice adds a vibrant and diverse range of hues to the composition, enhancing the visual appeal and capturing the viewer's attention.
+
+The decision to utilize a scatter plot with 'geom_point' and setting 'show.legend' to FALSE creates a minimalist design, allowing the data to be the focal point. The use of a white fill and a subtle black outline for the points enhances their visibility and provides a clean aesthetic.
+
+The integration of a void theme, achieved through 'theme_void()', removes unnecessary elements, leaving a clear canvas for the data to shine. This intentional choice ensures that viewers can focus on the visual representation without distraction.
+
+
+
+
+
+
+
+
